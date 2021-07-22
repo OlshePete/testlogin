@@ -1,4 +1,4 @@
-Project name - input to the test task
+Project name - input to the test task/ <br/>
 A typical test task for the vacancy React..
 
 Create a spa with an adaptive layout, where user authorization with validation will be implemented, as well as:
