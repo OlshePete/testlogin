@@ -22,7 +22,6 @@ export const getUsers = createAsyncThunk(
     'counter/getUsersStatus',
     async () => {
         const response = await apiClient.get("/api/v1/users/")
-        console.log("You")
         return response.data
     }
 )
@@ -35,13 +34,17 @@ export const slice = createSlice({
     reducers: {
         setUsers(state, action) {
             state.users = action.payload;
+        },
+        setFetching(state, action) {
+            state.isFetching = !state.isFetching;
         }
+
     },
     extraReducers: {
         [getToken.fulfilled]: (state, action) => {
             localStorage.setItem("token", action.payload.token);
             console.log("token was getted and included to localstorage", localStorage.token);
-            state.isFetching = true;
+            // state.isFetching = true;
         },
         [getUsers.fulfilled]: (state, action) => {
             state.users = action.payload;
@@ -51,7 +54,12 @@ export const slice = createSlice({
     },
 });
 
-export const { setUsers} = slice.actions;
+export const { setUsers, setFetching, incrementByAmount, setToken } = slice.actions;
+export const incrementAsync = amount => dispatch => {
+    setTimeout(() => {
+        dispatch(incrementByAmount(amount));
+    }, 1000);
+};
 
 // export const selectCount = state => state.counter.value;
 
